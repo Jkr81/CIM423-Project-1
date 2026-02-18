@@ -122,7 +122,9 @@ public class PressSoundButtonXR : MonoBehaviour
 
             // Only play if not already playing (extra spam safety)
             if (!audioSource.isPlaying)
+                audioSource.volume = 1f;
                 audioSource.Play();
+
         }
         else
         {
