@@ -3240,6 +3240,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 903159299}
   m_LocalEulerAnglesHint: {x: 0.007, y: -44.868, z: 90.097}
+--- !u!1 &617612883 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1680501586, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
+  m_PrefabInstance: {fileID: 1698371472}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &639605553 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8167078856227538544, guid: f29e939b0ca05334aadba06c6fefd742, type: 3}
@@ -6871,6 +6876,14 @@ PrefabInstance:
     - target: {fileID: 1767192434, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0.11
+      objectReference: {fileID: 0}
+    - target: {fileID: 1178791450436251564, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
+      propertyPath: m_CameraFloorOffsetObject
+      value: 
+      objectReference: {fileID: 617612883}
+    - target: {fileID: 1178791450436251564, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
+      propertyPath: m_RequestedTrackingOriginMode
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1717954561962503725, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
       propertyPath: m_Name
