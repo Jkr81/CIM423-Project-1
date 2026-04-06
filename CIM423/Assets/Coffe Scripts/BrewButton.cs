@@ -6,6 +6,11 @@ public class BrewButton : MonoBehaviour
 
     public void PressButton()
     {
-        machine.PressBrewButton();
+        Debug.Log("Brew button pressed");
+
+        if (machine != null)
+            machine.PressBrewButton();
+        else
+            Debug.LogWarning("Machine reference missing");
     }
 }

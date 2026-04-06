@@ -9,22 +9,34 @@ public class IngredientTrigger : MonoBehaviour
     }
 
     public IngredientType ingredientType;
-    public CoffeeMachineSimple machine;
+
+    public GameObject targetObject; // 👈 assign your "metal" object here
 
     private void OnTriggerEnter(Collider other)
     {
-        if (ingredientType == IngredientType.Water && other.CompareTag("Water"))
+        // ✅ ONLY trigger if it's the exact object you want
+        if (other.gameObject != targetObject)
+            return;
+
+        CoffeeMachineSimple machine = other.GetComponentInParent<CoffeeMachineSimple>();
+
+        if (machine == null)
+            return;
+
+        Debug.Log("Hit correct target: " + other.name);
+
+        if (ingredientType == IngredientType.Water)
         {
-            Debug.Log("Water poured");
             machine.AddWater();
-            Destroy(other.gameObject);
+            Debug.Log("Water added");
+        }
+        else if (ingredientType == IngredientType.Beans)
+        {
+            machine.AddBeans();
+            Debug.Log("Beans added");
         }
 
-        if (ingredientType == IngredientType.Beans && other.CompareTag("Beans"))
-        {
-            Debug.Log("Beans poured");
-            machine.AddBeans();
-            Destroy(other.gameObject);
-        }
+        // ✅ destroy THIS ingredient object
+        Destroy(gameObject);
     }
 }

@@ -6,19 +6,55 @@ public class CupTrigger : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Cup"))
+        Debug.Log("ENTER by: " + other.name);
+
+        Transform current = other.transform;
+        while (current != null)
         {
-            machine.PlaceCup();
-            Debug.Log("Cup placed in machine");
+            Debug.Log("Checking: " + current.name + " tag=" + current.tag);
+
+            if (current.CompareTag("Cup"))
+            {
+                if (machine != null)
+                {
+                    machine.PlaceCup();
+                    Debug.Log("Cup placed in machine");
+                }
+                else
+                {
+                    Debug.LogWarning("Machine reference missing on CupTrigger");
+                }
+                return;
+            }
+
+            current = current.parent;
         }
+
+        Debug.Log("Entered object was not the cup");
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Cup"))
+        Debug.Log("EXIT by: " + other.name);
+
+        Transform current = other.transform;
+        while (current != null)
         {
-            machine.hasCup = false;
-            Debug.Log("Cup removed");
+            if (current.CompareTag("Cup"))
+            {
+                if (machine != null)
+                {
+                    machine.RemoveCup();
+                    Debug.Log("Cup removed");
+                }
+                else
+                {
+                    Debug.LogWarning("Machine reference missing on CupTrigger");
+                }
+                return;
+            }
+
+            current = current.parent;
         }
     }
 }

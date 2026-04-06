@@ -1,5 +1,5 @@
 using UnityEngine;
-
+using UnityEngine.XR.Interaction.Toolkit.Interactables;
 
 public class GuestTrigger : MonoBehaviour
 {
@@ -11,19 +11,32 @@ public class GuestTrigger : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        Debug.Log("Guest trigger hit by: " + other.name);
+
         if (alreadyDelivered)
             return;
 
         if (!other.CompareTag("Cup"))
+        {
+            Debug.Log("Not a cup");
             return;
+        }
 
-        if (machine == null || !machine.coffeeReady)
+        if (machine == null)
+        {
+            Debug.LogWarning("Machine reference missing");
+            return;
+        }
+
+        if (!machine.coffeeReady)
         {
             Debug.Log("This cup is empty!");
             return;
         }
 
-        GameObject cupRoot = other.transform.root.gameObject;
+        GameObject cupRoot = other.attachedRigidbody != null
+            ? other.attachedRigidbody.gameObject
+            : other.gameObject;
 
         Debug.Log("Correct coffee delivered!");
 
@@ -42,14 +55,10 @@ public class GuestTrigger : MonoBehaviour
             return;
         }
 
-        // Disable XR grab
-        UnityEngine.XR.Interaction.Toolkit.Interactables.XRGrabInteractable grab = cup.GetComponent<UnityEngine.XR.Interaction.Toolkit.Interactables.XRGrabInteractable>();
+        XRGrabInteractable grab = cup.GetComponent<XRGrabInteractable>();
         if (grab != null)
-        {
             grab.enabled = false;
-        }
 
-        // Stop physics
         Rigidbody rb = cup.GetComponent<Rigidbody>();
         if (rb != null)
         {
@@ -59,7 +68,6 @@ public class GuestTrigger : MonoBehaviour
             rb.useGravity = false;
         }
 
-        // Parent first, then snap
         cup.transform.SetParent(handPoint);
         cup.transform.localPosition = Vector3.zero;
         cup.transform.localRotation = Quaternion.identity;
