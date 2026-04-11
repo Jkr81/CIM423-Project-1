@@ -3,18 +3,27 @@ using UnityEngine.XR.Interaction.Toolkit.Interactables;
 
 public class GuestTrigger : MonoBehaviour
 {
-    public GameObject goodJobText;
+    public GameObject successPanel;
     public CoffeeMachineSimple machine;
     public Transform handPoint;
 
     private bool alreadyDelivered = false;
+
+    private void Start()
+    {
+        alreadyDelivered = false;
+        Debug.Log("GuestTrigger started, alreadyDelivered reset to false");
+    }
 
     private void OnTriggerEnter(Collider other)
     {
         Debug.Log("Guest trigger hit by: " + other.name);
 
         if (alreadyDelivered)
+        {
+            Debug.Log("Already delivered");
             return;
+        }
 
         if (!other.CompareTag("Cup"))
         {
@@ -34,17 +43,26 @@ public class GuestTrigger : MonoBehaviour
             return;
         }
 
+        Debug.Log("Correct coffee delivered!");
+
         GameObject cupRoot = other.attachedRigidbody != null
             ? other.attachedRigidbody.gameObject
             : other.gameObject;
 
-        Debug.Log("Correct coffee delivered!");
-
-        if (goodJobText != null)
-            goodJobText.SetActive(true);
+        if (successPanel != null)
+        {
+            successPanel.SetActive(true);
+            Debug.Log("Success panel turned ON");
+        }
+        else
+        {
+            Debug.LogWarning("Success Panel is not assigned!");
+        }
 
         SnapCupToHand(cupRoot);
+
         alreadyDelivered = true;
+        Debug.Log("alreadyDelivered set to true");
     }
 
     void SnapCupToHand(GameObject cup)
