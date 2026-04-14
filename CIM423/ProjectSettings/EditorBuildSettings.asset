@@ -6,8 +6,8 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Museum.unity
-    guid: 92fa364cfdce1144e8508b16c6369a5a
+    path: Assets/Coffee Files/CoffeeScene.unity
+    guid: 7f488add6216047ba9cedbecc145fac2
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 91f2309268f2f43159a8c9f83b1c348f, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
